@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+<input type="button" id="turnOff" value="Turn Off" />
+<div id="status">
+    Status: Unknown
+</div>
+<script type="text/javascript">
+    $("#turnOff").button();
+
+    $("#turnOff").on("click", function () {
+        if ($(this).val() == "Turn Off") {
+            $.ajax({
+                url: "/Control/TurnOff",
+                success:
+                    function () {
+                        $("#status").html("Status: Off");
+                        $("#turnOff").val("Turn On");
+                    },
+                error:
+                    function () {
+                        alert("Error!");
+                    }
+            });
+        }
+        else {
+            $.ajax({
+                url: "/Control/TurnOn",
+                success:
+                    function () {
+                        $("#status").html("Status: On");
+                        $("#turnOff").val("Turn Off");
+                    },
+                error:
+                    function () {
+                        alert("Error!");
+                    }
+            });
+        }
+    });
+</script>
